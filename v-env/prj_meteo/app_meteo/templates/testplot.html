@@ -1,0 +1,103 @@
+
+
+<!doctype html>
+<html lang="en" dir="ltr">
+
+    <head>
+        {% load static %}
+
+        <title>django-chartjs line chart demo</title>
+
+
+
+        <meta charset="utf-8">
+        <title>testplot</title>
+
+
+        <style type="text/css">
+            .myborder-whites {
+                border: 1px solid white;
+    
+            }
+    
+            .myborder-greens {
+                border: 1px solid green;
+    
+    
+            }
+    
+            .myborder-reds {
+                border: 1px solid red;
+    
+            }
+    
+    
+            .container row {
+                border: 1px dashed yellow;
+            }
+    
+        /* -------------------------- General Styles --------------------------- */
+    
+            html {
+                overflow: hidden
+            }
+    
+            body {
+    
+                /* background-image: url("xxx.JPEG"); */
+                min-height: 1024px; 
+                min-width: 600px; 
+                background-size: 1024px 600px;
+                /* background-position: center; */
+                background-repeat: no-repeat;
+                margin: 0 auto;
+                color: white;
+    
+            }
+    
+    
+            .hero {
+                position: absolute;
+                min-width: 1024px;
+                max-width: 1024px;
+                min-height: 600px;
+                max-height: 600px;
+                top:0;
+                bottom: 0;
+                background-color: rgb(0, 0, 0);
+            }
+
+        </style>
+
+
+    
+    </head>
+
+    <body>
+
+        <div class="hero">
+        
+            <div>
+
+                <canvas id="myChart" width="1024px" height="100px" ></canvas>
+            </div>
+
+                <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+                <script type="text/javascript" src="{% static 'chartjs/js/Chart.min.js' %}"></script>
+                <script type="text/javascript">
+                    $.get('{% url "line_chart_json" %}', function(data) {
+                        var ctx = $("#myChart").get(0).getContext("2d");
+                        new Chart(ctx, {
+                            type: 'line', data: data
+                        });
+                    });
+                </script>      
+
+
+
+        </div>
+
+    
+    </body>
+
+</html>

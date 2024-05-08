@@ -421,7 +421,7 @@ def Get_Next_5_Days_Forecast(request):
 
 
             if APP_ENVIRONMENT_TYPE == "prod" or APP_FORCE_OWM_API_CALL == True:
-                url = 'https://api.openweathermap.org/data/2.5/onecall?lat=49.70987099981567&lon=5.7303613911147835&&appid=' + os.getenv('openWeatherMapKey') + '&units=metric&lang=fr'
+                url = 'https://api.openweathermap.org/data/3.0/onecall?lat=49.70987099981567&lon=5.7303613911147835&&appid=' + os.getenv('openWeatherMapKey') + '&units=metric&lang=fr'
                 _city_weather = requests.get(url.format()).json()
                 
                 if 'cod' in _city_weather:

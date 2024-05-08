@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather app</title>
+
+    <!-- {% load static %} -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.4.0/bootstrap-icons.css' %}" type="text/css">
+     <!-- <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="{% static 'weather-icons-master/css/weather-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+ 
+
+    
+
+    <meta http-equiv="refresh" content="{{ Page_Refresh }}">
+
+
+    <style type="text/css">
+        .myborder-whites {
+            border: 1px solid white;
+
+        }
+
+        .myborder-greens {
+            border: 1px solid green;
+
+
+        }
+
+        .myborder-reds {
+            border: 10px solid red;
+
+        }
+
+
+        i[class^="wi-"], i[class*=" wi-"] {
+            font-size: 50px;
+        }
+
+
+        html {
+            overflow: hidden
+        }
+
+        body {
+
+            /* background-image: url("xxx.JPEG"); */
+            min-height: 1024px; 
+            min-width: 600px; 
+            background-size: 1024px 600px;
+            /* background-position: center; */
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            color: white;
+
+        }
+
+
+        .hero {
+            position: absolute;
+            min-width: 1024px;
+            max-width: 1024px;
+            min-height: 600px;
+            max-height: 600px;
+            top:0;
+            bottom: 0;
+            background-color: rgb(0, 0, 2);
+        }
+
+        #ErrorMessage {
+            background-color: darkgoldenrod;
+            display: block;
+            color: blue;
+            font-size: 1.0rem;
+            text-align: left;
+        }
+
+
+
+        #current_date {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: gold;
+        }
+
+
+
+
+        i[class^="bi-wifi"] {
+            font-size: 1.75rem;
+            color: cornflowerblue;
+        }
+
+        .weather-out {
+            border: 1px solid white;
+            margin-top: 0rem;
+            margin-left: 1px;
+            margin-right: 1px;
+            background-color: rgba(104, 99, 99, 0.8);
+            border-radius: 7px;    
+        }
+
+        .weather-in {
+            border: 1px solid white;
+            margin-top: 0rem;
+            margin-left: 1px;
+            margin-right: 1px;
+            background-color: rgba(104, 99, 99, 0.8);
+            border-radius: 7px;    
+        }
+
+        .weather-icons {
+            border: 1px solid rgb(255, 255, 255);
+            margin-top: 0rem;
+            margin-right: 0px;
+            background-color: rgba(104, 99, 99, 0.8);
+            border-radius: 7px;  
+            padding-top: 2rem;
+        }
+
+
+        .icon-current-weather {
+            font-size: 2rem;
+        }
+
+        .image-icon-current-weather {
+            border-color: red;
+            width: 170px;
+            height: 170px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+
+        .image-icon-daily-forecast {
+            width: 170px;
+            height: 170px;
+            background-color: rgb(171, 171, 182);
+            border-radius: 10px;
+        }
+
+        .daily_forecast {
+            border: 1px solid white;
+            margin-top: 0rem;
+            margin-left: 1px;
+            margin-right: 1px;
+            background-color: #039be5;
+            border-radius: 7px;
+            text-align: center; 
+        }
+
+        .daily_forecast_icon {
+            border: 1px solid greenyellow;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+
+
+        #temperature-out {
+            font-size: 4rem;
+            text-align: right;
+            font-weight: bold;
+            margin-top: -15px;
+            margin-bottom: -10px;
+            color: rgb(255, 255, 255);
+        }
+
+        #temperature-in {
+            font-size: 4rem;
+            text-align: right;
+            font-weight: bold;
+            margin-top: -15px;
+            margin-bottom: -10px;
+            color: rgb(255, 255, 255);
+        }
+
+        #humidity, #minimum, #maximum {
+
+            font-size: 2.2rem;
+        }
+
+        #icon-thermometer {
+            font-size: 1.5rem;
+        }
+
+
+        #icon-thermometer-small {
+            font-size: 1rem;
+        }
+
+        #percent {
+            font-size: 1.1rem;
+        }
+
+    </style>
+</head>
+
+<body onload=display_ct();>
+
+    <script>
+
+        function display_ct() {
+    
+            var displayDateTime_options = { weekday: 'long', 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric', 
+                hour: 'numeric', 
+                minute: 'numeric', 
+                second:'numeric'
+            };
+    
+            var currentTime = new Date();
+            var currentTimeFormatted = currentTime.toLocaleDateString("fr-BE", displayDateTime_options);
+            document.getElementById('ct').innerHTML= currentTimeFormatted;
+            display_c();
+
+            mycounter = document.getElementById("mytimestamp2").value;
+            document.getElementById("mytimestamp2").value = mycounter -1;
+
+
+            var ErrorMessage = document.getElementById('ErrorMessage').innerHTML;
+
+            if (ErrorMessage === "") {
+                document.getElementById('ErrorMessage').setAttribute("display", "none");
+            } else {
+                document.getElementById('ErrorMessage').setAttribute("display", "inline");
+
+            }
+
+
+
+
+        }
+    
+        function display_c() {
+            var refresh=1000;
+            mytime=setTimeout('display_ct()',refresh);
+        }
+    
+    </script>
+
+
+
+
+
+
+<div class="hero">
+    
+    <!-- ce div reprend toutes les données avec une position coin supérieur gauche -->
+    <div class="container position-absolute w-100 h-100 myborder-green">
+
+        <!-- ligne date heure + autres info (wifi) -->
+        <div class="row mt-1 mb-1 text-center myborder-red">
+            
+            <div id="current_date" class="col-10 myborder-green">
+                <span id="ct"></span>
+                <div id="ErrorMessage">{{ ErrorMessageDisplay }}</div>
+            </div>
+            <div class="col myborder-whites pr-4" >
+              
+                <i class="{{ wifi_class }}"></i>
+                
+            </div>
+            
+        </div>
+
+
+
+
+
+        <!-- Row unique pour l'instant reprend le IN, le OUT et la date et les icones.-->
+        <div class="row">
+
+
+            <!--Première colonne, reprend les infos IN et OUT-->
+            <div class="col-10 myborder-red">
+
+                <!-- Ligne température extérieure -->
+                <div class="row myborder-green">
+                    
+
+                    <div class="col weather-out myborder-white">
+                    
+                    
+                        <!-- ligne témpérature extérieure -->
+                    
+                        <div class="row">
+                            <div class="col-2 text-left myborder-green ">
+                                <span>OUT</span>
+                            </div>
+                        <!-- </div> -->
+
+
+                        <!-- <div class="row"> -->
+                            <div class="col-5 text-center myborder-green">
+                                <span></span>
+                            </div>
+                            <div class="col-2 text-center  border-left">
+                                <span>Min</span>
+                            </div>
+                            <div class="col-1 text-center myborder-green">
+                                <span>Max</span>
+                            </div>
+                        </div>                    
+                    
+                    
+                        <div class="row align-items-baseline border-top">
+                    
+                            <!-- Temperature-->
+                            <div id="temperature-out" class="col-4 text-right ">
+                                {{ out_curr_temp }}&deg;
+                                <i id="icon-thermometer" class="wi wi-thermometer"></i>
+                            </div>
+                    
+                            <!-- humidity-->
+                            <div id="humidity" class="col-3 humidity text-center" >
+                                {{ out_curr_humidity}} 
+                                <span id="percent">%</span>
+                                
+                            </div>
+                    
+                            <!-- Minima-->
+                            <div id="minimum" class="col-2 minima, text-center border-left">
+                                {{ out_min_temp }}&deg;
+                                <i id="icon-thermometer-small" class="wi wi-thermometer"></i>
+                            </div>
+                    
+                            <!-- maximum-->
+                            <div id="maximum" class="col-2 maxima, text-center">
+                                {{ out_max_temp }}&deg;
+                                <i id="icon-thermometer-small" class="wi wi-thermometer"></i>
+                     
+                            </div>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                </div>
+
+
+
+                <!-- Ligne température intérieure -->
+                <div class="row myborder-green">
+                    <div class="col weather-in myborder-white">
+                    
+                    
+                        <!-- ligne témpérature extérieure -->
+                    
+                        <div class="row">
+                            <div class="col-2 text-left myborder-red">
+                                <span>IN</span>
+                            </div>
+                        <!-- </div> -->
+                    
+                        <!-- <div class="row"> -->
+                            <div class="col-5 text-center myborder-green">
+                                <span></span>
+                            </div>
+                            <div class="col-2 text-center myborder-green border-left">
+                                <span>Min</span>
+                            </div>
+                            <div class="col-2 text-center myborder-green">
+                                <span>Max</span>
+                            </div>
+                        </div>                     
+                    
+                        <div class="row align-items-baseline border-top">
+                    
+                            <!-- Temperature-->
+                            <div id="temperature-in" class="col-4 text-right  ">
+                                {{ in_curr_temp }}&deg;
+                                <i id="icon-thermometer" class="wi wi-thermometer"></i>
+                            </div>
+                    
+                            <!-- humidity-->
+                            <div id="humidity" class="col-3 humidity text-center">
+                                {{ in_curr_humidity}} 
+                                <span id="percent">%</span>
+                            </div>
+                    
+                            <!-- Minima-->
+                            <div id="minimum" class="col-2 minima, text-center border-left">
+                                {{ in_min_temp }}&deg;
+                                <i id="icon-thermometer-small" class="wi wi-thermometer"></i>
+                            </div>
+                    
+                            <!-- maximum-->
+                            <div id="maximum" class="col-2 maxima, text-center">
+                                {{ in_max_temp }}&deg;
+                                <i id="icon-thermometer-small" class="wi wi-thermometer"></i>
+                    
+                            </div>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                </div>
+
+                <!-- Ligne vide pour l'instant reprendra prévision horaire -->
+                <div class="row myborder-green">
+
+                </div>
+
+
+                <!-- Ligne pour les prévisions journalires-->
+                <div class="row myborder-green">
+
+                    <!-- jour 1 -->
+                    <div class="col daily_forecast myborder-red">
+                        <div>{{ Forecast_Day_1_day }}</div>
+                        <div>
+                            <i class="wi wi-owm-day-{{ Forecast_Day_1_icon }} daily_forecast_icon"></i>
+                        </div>
+                        <div>{{ Forecast_Day_1_description }}</div>
+                        <div>{{ Forecast_Day_1_temperature }} °C</div>
+                    </div>
+
+
+                    <!-- jour 2 -->                    
+                    <div class="col daily_forecast ">
+                        <div>{{ Forecast_Day_2_day }}</div>
+                        <div>
+                            <i class="wi wi-owm-{{ Forecast_Day_2_icon }} daily_forecast_icon"></i>
+                           
+                        </div>
+                        <div>{{ Forecast_Day_2_description }}</div>
+                        <div>{{ Forecast_Day_2_temperature }} °C</div>
+                    </div>
+
+
+                    <!-- jour 3 -->                    
+                    <div class="col daily_forecast ">
+                        <div>{{ Forecast_Day_3_day }}</div>
+                        <div>
+                            <i class="wi wi-owm-{{ Forecast_Day_3_icon }} daily_forecast_icon"></i>
+                        </div>
+                        <div>{{ Forecast_Day_3_description }}</div>
+                        <div>{{ Forecast_Day_3_temperature }} °C</div>
+                    </div>
+
+
+                    <!-- jour 4 -->                    
+                    <div class="col daily_forecast">
+                        <div>{{ Forecast_Day_4_day }}</div>
+                        <div>
+                            <i class="wi wi-owm-{{ Forecast_Day_4_icon }} daily_forecast_icon"></i>
+                        </div>
+                        <div>{{ Forecast_Day_4_description }}</div>
+                        <div>{{ Forecast_Day_4_temperature }} °C</div>
+                    </div>  
+
+
+                    <!-- jour 5 -->                    
+                    <div class="col daily_forecast ">
+                        <div>{{ Forecast_Day_5_day }}</div>
+                        <div>
+                            <i class="wi wi-owm-{{ Forecast_Day_5_icon }} daily_forecast_icon"></i>
+                        </div>
+                        <div>{{ Forecast_Day_5_description }}</div>
+                        <div>{{ Forecast_Day_5_temperature }} °C</div>
+                    </div>                                      
+                </div>
+
+
+
+            </div>
+
+
+            <!--Première colonne, reprend la date et les icones.-->
+            <div class="col-2 weather-icons icon-current-weather text-center myborder-red">
+                <figure >
+                    <i class="wi wi-owm-day-{{ out_curr_icon }}"></i>                    
+                </figure>
+
+            </div>
+        </div>
+
+        <div>
+
+            P........
+            <input type="text" id=mytimestamp2 name="mytimestamp2" value="{{ Page_Refresh }}" size="1" style="background-color: darkslategray  ">
+            <br>
+
+            OWM.
+            <input type="text" id=OpenWeather_Trigger_Counter name="OpenWeather_Trigger_Counter" value="{{ OpenWeather_Trigger_Counter }}" size="1" style="background-color: darkslategray  ">
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+</body>
+
