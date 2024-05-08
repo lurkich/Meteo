@@ -1,0 +1,94 @@
+# Query: dashboard
+# Flags: RegExp
+# ContextLines: 1
+
+23 results - 16 files
+
+README.md:
+  1: # MeteoDashboard-DEV
+  2: # MeteoDashboard-DEV
+
+prj_meteo/app_meteo/urls.py:
+   4  
+   5: from .views import dashboard
+   6  from .views import testlot
+
+   9  urlpatterns = [
+  10:     path('', dashboard, name='dashboard'),
+  11:     path('dashboard', dashboard, name='station meteo'),
+  12      path('testplot', testplot, name="testplot"),
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/css/font-awesome.css:
+  814  }
+  815: .fa-dashboard:before,
+  816  .fa-tachometer:before {
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/css/font-awesome.min.css:
+  3   *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+  4: ⟪ 10775 characters skipped ⟫re{content:"\f0de"}.fa-envelope:before{content:"\f0e0"}.fa-linkedin:before{content:"\f0e1"}.fa-rotate-left:before,.fa-undo:before{content:"\f0e2"}.fa-legal:before,.fa-gavel:before{content:"\f0e3"}.fa-dashboard:before,.fa-tachometer:before{content:"\f0e4"}.fa-comment-o:before{content:"\f0e5"}.fa-comments-o:before{content:"\f0e6"}.fa-flash:before,.fa-bolt:before{content:"\f0e7"}.fa-sitemap:before{content:"\f0e8"}.fa-umbrella:before{content:"\f0e9"}.fa-paste:before,.fa-clipboard:before{content:"\f0ea"}.fa-lightbulb-o:before{content:"\f0eb"}.fa-exchange:before{content:"\f0ec"}.fa-cloud-download:before{content:"\f0ed"}.fa-cloud-upload:before{content:"\f0ee"}.fa-user-md:before{content:"\f0f0"}.fa-stethoscope:before{content:"\f0f1"}.fa-suitcase:before{content:"\f0f2"}.fa-bell-o:before{content:"\f0a2"}.fa-coffee:before{content:"\f0f4"}.fa-cutlery:before{content:"\f0f5"}.fa-file-text-o:before{content:"\f0f6"}.fa-building-o:before{content:"\f0f7"}.fa-hospital-o:before{content:"\f0f8"}.fa-ambulance:before{content:"\f0f9"}.fa-medkit:before{content:"\f0fa"}.fa-fighter-jet:before{content:"\f0fb"}.fa-beer:before{content:"\f0fc"}.fa-h-square:before{content:"\f0fd"}.fa-plus-square:before{content:"\
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/fonts/fontawesome-webfont.svg:
+  741  q-10 0 -18 1.5t-16.5 5.5t-13.5 6t-13.5 10t-11.5 10t-13 12.5t-12 12.5q14 -14 14 -34t-14 -34l-126 -126l256 -256q43 43 96 43q52 0 91 -37l363 -363q37 -39 37 -91z" />
+  742:     <glyph glyph-name="dashboard" unicode="&#xf0e4;" horiz-adv-x="1792" 
+  743  d="M384 384q0 53 -37.5 90.5t-90.5 37.5t-90.5 -37.5t-37.5 -90.5t37.5 -90.5t90.5 -37.5t90.5 37.5t37.5 90.5zM576 832q0 53 -37.5 90.5t-90.5 37.5t-90.5 -37.5t-37.5 -90.5t37.5 -90.5t90.5 -37.5t90.5 37.5t37.5 90.5zM1004 351l101 382q6 26 -7.5 48.5t-38.5 29.5
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/less/icons.less:
+  231  .@{fa-css-prefix}-gavel:before { content: @fa-var-gavel; }
+  232: .@{fa-css-prefix}-dashboard:before,
+  233  .@{fa-css-prefix}-tachometer:before { content: @fa-var-tachometer; }
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/less/variables.less:
+  209  @fa-var-cutlery: "\f0f5";
+  210: @fa-var-dashboard: "\f0e4";
+  211  @fa-var-dashcube: "\f210";
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/scss/_icons.scss:
+  231  .#{$fa-css-prefix}-gavel:before { content: $fa-var-gavel; }
+  232: .#{$fa-css-prefix}-dashboard:before,
+  233  .#{$fa-css-prefix}-tachometer:before { content: $fa-var-tachometer; }
+
+prj_meteo/app_meteo/static/font-awesome-4.7.0/scss/_variables.scss:
+  209  $fa-var-cutlery: "\f0f5";
+  210: $fa-var-dashboard: "\f0e4";
+  211  $fa-var-dashcube: "\f210";
+
+prj_meteo/app_meteo/static/weather-icons-master/_docs/gh-pages/css/styles.css:
+   697  }
+   698: .glyphicon-dashboard:before {
+   699    content: "\e141";
+
+  7586  }
+  7587: .fa-dashboard:before,
+  7588  .fa-tachometer:before {
+
+prj_meteo/app_meteo/static/weather-icons-master/_docs/less/bootstrap/glyphicons.less:
+  177  .glyphicon-fullscreen             { &:before { content: "\e140"; } }
+  178: .glyphicon-dashboard              { &:before { content: "\e141"; } }
+  179  .glyphicon-paperclip              { &:before { content: "\e142"; } }
+
+prj_meteo/app_meteo/static/weather-icons-master/_docs/less/font-awesome/icons.less:
+  231  .@{fa-css-prefix}-gavel:before { content: @fa-var-gavel; }
+  232: .@{fa-css-prefix}-dashboard:before,
+  233  .@{fa-css-prefix}-tachometer:before { content: @fa-var-tachometer; }
+
+prj_meteo/app_meteo/static/weather-icons-master/_docs/less/font-awesome/variables.less:
+  191  @fa-var-cutlery: "\f0f5";
+  192: @fa-var-dashboard: "\f0e4";
+  193  @fa-var-dashcube: "\f210";
+
+prj_meteo/app_meteo/views/__init__.py:
+  1: from .dashboard import *
+
+prj_meteo/app_meteo/views/dashboard.py:
+   77  
+   78: def dashboard(request):
+   79  
+
+  132  
+  133:     return render(request,'dashboard.html', context=context)
+  134  
+
+prj_meteo/prj_meteo/urls.py:
+  24  urlpatterns = [
+  25:     path('xxx', RedirectView.as_view(url = 'dashboard', permanent = True)),
+  26      path('', include('app_meteo.urls')),

@@ -1,0 +1,16 @@
+{
+    "autorun": true,
+    "autokill": true,
+    "terminals": [
+	{
+            "name": "SCRIPTS",
+            "description": "For running python commands",
+            "open": true,
+            "focus": false,
+            "commands": [
+                "source /home/django/djangotest/v-env/bin/activate",
+                "python -V"
+            ]
+        },
+    ]
+}

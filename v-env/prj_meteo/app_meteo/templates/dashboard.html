@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather app</title>
+
+    <!-- {% load static %} -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" >
+
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/bootstrap-icons.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+
+
+
+
+     <!-- <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}" type="text/css"> -->
+    
+    <!-- <link rel="stylesheet" href="{% static 'weather-icons-master/css/weather-icons.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="/static/weather-icons-master/css/weather-icons.css" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'weather-icons-master/css/weather-icons-wind.css' %}" type="text/css">   
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+ 
+
+    
+
+    <meta http-equiv="refresh" content="{{ Page_Refresh }}">
+
+
+    <style type="text/css">
+        .myborder-whites {
+            border: 1px solid white;
+
+        }
+
+        .myborder-greens {
+            border: 1px solid green;
+
+
+        }
+
+        .myborder-reds {
+            border: 1px solid red;
+
+        }
+
+
+        .container row {
+            border: 1px dashed yellow;
+        }
+
+    /* -------------------------- General Styles --------------------------- */
+
+        html {
+            overflow: hidden
+        }
+
+        body {
+
+            /* background-image: url("xxx.JPEG"); */
+            min-height: 1024px; 
+            min-width: 600px; 
+            background-size: 1024px 600px;
+            /* background-position: center; */
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            color: white;
+
+        }
+
+
+        .hero {
+            position: absolute;
+            min-width: 1024px;
+            max-width: 1024px;
+            min-height: 600px;
+            max-height: 600px;
+            top:0;
+            bottom: 0;
+            background-color: rgb(0, 0, 0);
+        }
+
+    /* -------------------------- Specific Entire Cell Styles --------------------------- */
+
+
+        .current_weather_cell {
+
+
+            border: 1px solid white;
+            margin-top: 0rem;
+            margin-right: 0px;
+            background-color: rgba(104, 99, 99, 0.8);
+            border-radius: 7px;  
+            padding-top: 0rem;
+
+        }
+
+
+        .weather-in_out_cell {
+            border: 1px solid white;
+            margin-top: 0rem;
+            margin-left: 1px;
+            margin-right: 1px;
+            background-color: rgba(104, 99, 99, 0.8);
+            border-radius: 7px;
+            line-height: 40px;
+        }
+
+        .daily_forecast_cell {
+            border: 1px solid white;
+            margin-top: 0rem;
+            margin-left: 1px;
+            margin-right: 1px;
+            background-color: #03344d;
+            border-radius: 7px;
+            text-align: center; 
+        }
+
+
+
+
+
+    /* -------------------------- Generic Icon styles --------------------------- */    
+
+        #icon-thermometer-small {
+            font-size: 1rem;
+        }
+
+
+        #icon-thermometer {
+            font-size: 1.5rem;
+        }
+
+        #icon-wind {
+            font-size: 2rem;
+            padding-bottom: 0rem;
+        }
+
+        #icon-wind-large {
+            font-size: 2.5rem;
+        }
+
+        #icon_sunrise_sunset {
+            font-size: 2rem;
+            padding-bottom: 0rem;
+        }
+
+        #icon_battery_low {
+            width: 1.8rem;
+            padding-left: 5px;
+        }
+
+
+        #libelle {
+
+            font-size: 1rem;
+            text-align: left;
+            padding-left: 0px;
+        }
+
+
+
+
+    /* -------------------------- Specific Icon styles --------------------------- */     
+
+        i[class^="bi-wifi"] {
+            font-size: 1.60rem;
+            color: cornflowerblue;
+        }
+
+
+
+        i[class^="wi-"], i[class*=" wi-"] {
+            font-size: 50px;
+        }
+
+
+    
+        .daily_forecast_icon {
+            border: 0px solid greenyellow;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+
+        .daily_forecast_temp {
+            font-size: 1.0rem;
+        }
+
+        .daily_forecast_wind {
+            font-size: 1rem;
+            display: table;
+            margin: 0 auto;
+            
+        }
+
+
+        .wind-info {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 3px;
+        }
+
+        .light-bulb {
+            height: 30px;
+            width: 30px;
+        }
+    /* -------------------------- General fields styles ------------------------ */  
+
+
+
+
+
+
+    /* -------------------------- Specific fields styles ------------------------ */   
+
+
+        .current_date {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: gold;
+            text-align: center;
+        }
+
+
+        .ErrorMessage {
+            background-color: darkgoldenrod;
+            display: block;
+            color: blue;
+            font-size: 1.0rem;
+            text-align: left;
+        }
+
+
+        #temperature {
+            font-size: 3rem;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: rgb(255, 255, 255);
+        }
+
+
+        #humidity, #minimum, #maximum {
+            font-size: 2.2rem;
+            margin-top: 10px;
+        }
+
+
+        #percent {
+            font-size: 1.1rem;
+ 
+        }
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+
+<body onload=display_ct();>
+
+    <script>
+
+        function display_ct() {
+    
+            var displayDateTime_options = { weekday: 'long', 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric', 
+                hour: 'numeric', 
+                minute: 'numeric', 
+                second:'numeric'
+            };
+    
+            var currentTime = new Date();
+            var currentTimeFormatted = currentTime.toLocaleDateString("fr-BE", displayDateTime_options);
+            document.getElementById('ct').innerHTML= currentTimeFormatted;
+            display_c();
+
+            mycounter = document.getElementById("mytimestamp2").value;
+            document.getElementById("mytimestamp2").value = mycounter -1;
+
+
+            var ErrorMessage = document.getElementById('ErrorMessage').innerHTML;
+
+            if (ErrorMessage === "") {
+                document.getElementById('ErrorMessage').setAttribute("display", "none");
+            } else {
+                document.getElementById('ErrorMessage').setAttribute("display", "inline");
+
+            }
+
+
+
+
+        }
+    
+        function display_c() {
+            var refresh=1000;
+            mytime=setTimeout('display_ct()',refresh);
+        }
+    
+    </script>
+
+
+
+
+
+
+<div class="hero">
+    
+    <!-- ce div reprend toutes les données avec une position coin supérieur gauche -->
+    <div class="container-fluid position-absolute w-100 h-100">
+
+        <!-- ligne date heure + autres info (wifi) -->
+        <div class="row mt-1 mb-1">
+            
+            <div class="col-10 current_date">
+                <span id="ct"></span>
+                <div id="ErrorMessage" class="ErrorMessage">{{ ErrorMessageDisplay }}</div>
+            </div>
+            <div class="col pr-4" >
+              
+                <i class="{{ wifi_class }}"></i>
+                
+            </div>
+            
+        </div>
+
+
+
+
+
+        <!-- Row unique pour l'instant reprend le IN, le OUT et la date et les icones.-->
+        <div class="row">
+
+
+            <!--Première colonne, reprend les infos IN et OUT-->
+            <div class="col-10">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- Ligne température extérieure -->
+                <div class="row">
+                    
+
+                    <div class="col weather-in_out_cell">
+                    
+                    
+               
+                    
+                    
+                        <div class="row align-items-baseline border-top">
+                    
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-1 align-self-start text-left" style="line-height: 20px;" >
+                                <div style="padding-left: 8px;">
+                                    OUT
+                                </div>
+                                
+                                
+                                <div style="width: 70px;" >
+                                {% if out_battery_level <= 10 %}
+                                    <img src="../static/images/battery_empty.svg" id="icon_battery_low"></img>
+                                    <span style="font-size: 0.8rem;"> {{ out_battery_level }}% </span>
+                                {% endif %}
+                                </div>
+
+                            </div>
+
+
+                        
+
+
+                            <!-- Temperature-->
+                            <div id="temperature" class="col-lg-2" >
+                                {{ out_curr_temp }}&deg;
+                             </div>
+
+
+
+
+
+                            <!-- humidity-->
+                            <div id="humidity" class="col-lg-2 align-self-start text-center border-right" >
+                                {{ out_curr_humidity}}
+                                <span id="percent">%</span>
+                            </div>
+                    
+
+
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-sm-1 align-self-start" >Min</div>
+
+                            <!-- Minimum-->
+                            <div id="minimum" class="col-md-2 align-self-start text-center">
+                                {{ out_min_temp }}&deg;
+                            </div>
+                    
+
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-sm-1 align-self-start" >Max</div>
+
+                            <!-- maximum-->
+                            <div id="maximum" class="col-md-2 align-self-start text-center">
+                                {{ out_max_temp }}&deg;
+                            </div>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- Ligne température intérieure -->
+                <div class="row">
+
+
+                    <div class="col weather-in_out_cell">
+                    
+                    
+                        <!-- ligne témpérature interieure -->
+                    
+
+                        
+                        <div class="row align-items-baseline border-top">
+                    
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-1 align-self-start text-left" style="line-height: 20px;" >
+                                <div style="padding-left: 8px;">
+                                    IN
+                                </div>
+                                
+                                
+                                <div style="width: 70px;" >
+                                {% if in_battery_level <= 10 %}
+                                    <img src="../static/images/battery_empty.svg" id="icon_battery_low"></img>
+                                    <span style="font-size: 0.8rem;"> {{ in_battery_level }}% </span>
+                                {% endif %}
+                                </div>
+
+                            </div>
+
+                            <!-- Temperature-->
+                            <div id="temperature" class="col-lg-2">
+                                {{ in_curr_temp }}&deg;
+                            </div>
+
+
+
+
+                            <!-- humidity-->
+                            <div id="humidity" class="col-lg-2 align-self-start text-center border-right">
+                                {{ in_curr_humidity}} 
+                                <span id="percent">%</span>
+                            </div>
+
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-sm-1 align-self-start" >Min</div>
+
+                            <!-- Minimum -->
+                            <div id="minimum" class="col-md-2 align-self-start text-center">
+                                {{ in_min_temp }}&deg;
+                            </div>
+
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-sm-1 align-self-start" >Max</div>
+
+                            <!-- maximum-->
+                            <div id="maximum" class="col-md-2 align-self-start text-center">
+                                {{ in_max_temp }}&deg;
+                    
+                            </div>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                <!-- Ligne température serre -->
+                <div class="row">
+
+
+                    <div class="col weather-in_out_cell">
+                    
+                    
+                        <!-- ligne témpérature serre -->
+                    
+
+                        
+                        <div class="row align-items-baseline border-top">
+                    
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-1 align-self-start text-left" style="line-height: 20px;" >
+                                <div style="padding-left: 8px;">
+                                    SERRE
+                                </div>
+                                
+                                
+                                <div style="width: 70px;" >
+                                {% if serre_battery_level <= 10 %}
+                                    <img src="../static/images/battery_empty.svg" id="icon_battery_low"></img>
+                                    <span style="font-size: 0.8rem;"> {{ serre_battery_level }}% </span>
+                                {% endif %}
+                                </div>
+
+                            </div>
+
+                            <!-- Temperature-->
+                            <div id="temperature" class="col-lg-2">
+                                {{ serre_curr_temp }}&deg;
+                            </div>
+
+
+
+
+                            <!-- humidity-->
+                            <div id="humidity" class="col-lg-2 align-self-start text-center border-right">
+                                {{ serre_curr_humidity}} 
+                                <span id="percent">%</span>
+                            </div>
+
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-sm-1 align-self-start" >Min</div>
+
+                            <!-- Minimum -->
+                            <div id="minimum" class="col-md-2 align-self-start text-center">
+                                {{ serre_min_temp }}&deg;
+                            </div>
+
+                            <!-- Libelle -->
+                            <div id="libelle" class="col-sm-1 align-self-start" >Max</div>
+
+                            <!-- maximum-->
+                            <div id="maximum" class="col-md-2 align-self-start text-center">
+                                {{ serre_max_temp }}&deg;
+                    
+                            </div>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- Ligne vide pour l'instant reprendra prévision horaire -->
+                <div class="row">
+
+                </div>
+
+
+                <!-- Ligne pour les prévisions journalieres-->
+                <div class="row">
+
+
+                    {% for day_forecast in Forecasts %}
+
+
+                        <div class="col daily_forecast_cell">
+                            <div>{{ day_forecast.day }}</div>
+
+                            <div>
+                                <i class="wi wi-owm-{{ day_forecast.icon }} daily_forecast_icon"></i>
+                            </div>
+                            <div style="height: 50px;">{{ day_forecast.description }}</div>
+
+                            <div>
+                                <span class="daily_forecast_temp">{{ day_forecast.temp_min }}</span>
+                                /
+                                <span class="daily_forecast_temp">{{ day_forecast.temp_max }}°</span>
+                            </div>
+
+
+                            <div>
+                                <span class="daily_forecast_temp">{{ day_forecast.temp_morn }}</span>
+                                /
+                                <span class="daily_forecast_temp">{{ day_forecast.temp_day }}</span>
+                                /
+                                <span class="daily_forecast_temp">{{ day_forecast.temp_night }}°</span>                               
+                            </div>
+                          
+
+                            <div id="wind" class="daily_forecast_wind">
+    
+                                <span class="wind-info" >{{ day_forecast.wind_speed }}</span>
+
+                                <span class="wind-info" style="font-size: 10px ;"> km/h &nbsp;</span>
+
+                                <span>
+                                    <i id="icon-wind" class="wi wi-wind towards-{{ day_forecast.wind_deg }}-deg wind-direction"></i>
+                                </span>
+                            </div>
+                        </div>
+
+
+                    {%endfor %}
+
+                                    
+                </div>
+
+
+            </div>
+
+
+            <!--Première colonne, reprend la date et les icones.-->
+            <div class="col current_weather_cell text-center">
+
+                <figure>
+                    <div>
+                        <i class="wi wi-owm-{{ out_curr_icon }} daily_forecast_icon"></i>
+                    </div>
+                    <div style="height: 50px;">{{ out_curr_description }}</div>
+                    <div>
+                        <span>{{ out_curr_temp_min }}</span>
+                        /
+                        <span>{{ out_curr_temp_max }}°</span>
+                    </div>
+
+                    <div>
+                        <span>{{ out_curr_temp_morn }}</span>
+                        /
+                        <span>{{ out_curr_temp_day }}</span>
+                        /
+                        <span>{{ out_curr_temp_night }}°</span>                               
+                    </div>
+
+                    <div id="wind" class="daily_forecast_wind">
+    
+                        <span class="wind-info">{{ out_curr_wind_speed }} </span>
+
+                        <span class="wind-info" style="font-size: 10px ;"> km/h &nbsp;</span>
+
+                        <span>
+                            <i id="icon-wind-large" class="wi wi-wind towards-{{ out_curr_wind_deg }}-deg wind-direction"></i>
+                        </span>
+                    </div>
+
+
+
+                    <div style="padding-top: 40px;"> 
+                        <i id="icon_sunrise_sunset" class="wi wi-sunrise"></i>
+                        -
+                        <i id="icon_sunrise_sunset" class="wi wi-sunset"></i>
+                    </div>
+
+                </figure>
+                <div>{{ out_curr_sunrise }} - {{out_curr_sunset }}</div>
+                <div>{{ sunshine_time_difference_min }} min</div>
+
+            </div>
+        </div>
+
+        <div>
+
+            <input type="text" id=mytimestamp2 name="mytimestamp2" value="{{ Page_Refresh }}" size="1" style="background-color: darkslategray  " hidden=true>
+            <input type="text" id=OpenWeather_Trigger_Counter name="OpenWeather_Trigger_Counter" value="{{ OpenWeather_Trigger_Counter }}" size="1" style="background-color: darkslategray  " hidden=true>
+            <input type="text" id=monitoring_OMW_calls name="monitoring_OMW_calls" value="{{ monitoring_OMW_calls }}" size="1" style="background-color: darkslategray" hidden=true>
+
+    
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+</body>
+
+</html>
+

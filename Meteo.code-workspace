@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.pythonPath": "bin/python3",
+		"python.terminal.activateEnvironment": true,
+        "python.terminal.activateEnvInCurrentTerminal": true,
+		"workbench.colorTheme": "Monokai Dimmed",
+		"debug.allowBreakpointsEverywhere": true,
+		"editor.tabCompletion": "on",
+		"terminal.integrated.fontSize": 11		
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+
+			{
+				"name": "Python: Django",
+				"type": "debugpy",
+				"request": "launch",
+				"program": "${workspaceFolder}/v-env/prj_meteo/manage.py",
+				"console": "integratedTerminal",
+				"args": [
+					"runserver",
+					"[::]:8003"
+			],
+			"django": true,
+			"justMyCode": false
+
+			}
+		]
+	}
+}
