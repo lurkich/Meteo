@@ -12,7 +12,7 @@ from django.db.models import Min
 from django.utils.timezone import get_current_timezone
 
 
-import requests
+import requests 
 import django.db
 import socket
 import math
