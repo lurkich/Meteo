@@ -12,7 +12,7 @@ from django.db.models import Min
 from django.utils.timezone import get_current_timezone
 
 
-import requests 
+import requests
 import django.db
 import socket
 import math
@@ -271,7 +271,16 @@ def Get_Outside_Temperature():
         Sql_out_curr_humidity = int(round(_Sql_out_curr_values.humidity, 0))
 
         Sql_out_max_value = Out_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Max('temperature'))['temperature__max']
-        Sql_out_max_value = round(Sql_out_max_value, 1)
+        
+        if not Sql_out_max_value == None:
+            Sql_out_max_value = round(Sql_out_max_value, 1)
+        else:        
+            Sql_out_curr_temp = 99.9
+            Sql_out_curr_humidity = 99.9
+            Sql_out_max_value = 99.9
+            Sql_out_min_value = 99.9
+            Sql_out_battery_level = 99
+
 
         Sql_out_min_value = Out_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Min('temperature'))['temperature__min']
         Sql_out_min_value = round(Sql_out_min_value, 1)
@@ -306,7 +315,17 @@ def Get_Inside_Temperature():
         Sql_in_curr_humidity = int(round(_Sql_in_curr_values.humidity, 0))
 
         Sql_in_max_value = In_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Max('temperature'))['temperature__max']
-        Sql_in_max_value = round(Sql_in_max_value, 1)
+        
+        if not Sql_in_max_value == None:        
+        
+            Sql_in_max_value = round(Sql_in_max_value, 1)
+        else:
+
+            Sql_in_curr_temp = 99.9
+            Sql_in_curr_humidity = 99.9
+            Sql_in_max_value = 99.9
+            Sql_in_min_value = 99.9
+            Sql_in_battery_level = 99            
 
         Sql_in_min_value = In_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Min('temperature'))['temperature__min']
         Sql_in_min_value = round(Sql_in_min_value, 1)  
@@ -340,12 +359,20 @@ def Get_Serre_Temperature():
         Sql_serre_curr_humidity = int(round(_Sql_serre_curr_values.humidity, 0))
 
         Sql_serre_max_value = Serre_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Max('temperature'))['temperature__max']
-        Sql_serre_max_value = round(Sql_serre_max_value, 1)
+        if not Sql_serre_max_value == None:
 
-        Sql_serre_min_value = Serre_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Min('temperature'))['temperature__min']
-        Sql_serre_min_value = round(Sql_serre_min_value, 1)  
+            Sql_serre_max_value = round(Sql_serre_max_value, 1)
 
-        Sql_serre_battery_level = int(round(_Sql_serre_curr_values.battery_level, 0))
+            Sql_serre_min_value = Serre_temp.objects.filter(collectdate__gt=Search_Reference_Datetime).aggregate(Min('temperature'))['temperature__min']
+            Sql_serre_min_value = round(Sql_serre_min_value, 1)  
+
+            Sql_serre_battery_level = int(round(_Sql_serre_curr_values.battery_level, 0))
+        else:
+            Sql_serre_curr_temp = 99.9
+            Sql_serre_curr_humidity = 99.9
+            Sql_serre_max_value = 99.9
+            Sql_serre_min_value = 99.9
+            Sql_serre_battery_level = 99
 
     except Exception as e:
         Message_To_Display = "Error : Get_Serre_Temperature"

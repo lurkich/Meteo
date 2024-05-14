@@ -7,11 +7,26 @@
     <!-- {% load static %} -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.4.0/bootstrap-icons.css' %}" type="text/css">
+    
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" >
+
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/bootstrap-icons.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+
+
+
+
      <!-- <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}" type="text/css"> -->
-    <link rel="stylesheet" href="{% static 'weather-icons-master/css/weather-icons.css' %}" type="text/css">
+    
+    <!-- <link rel="stylesheet" href="{% static 'weather-icons-master/css/weather-icons.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href="/static/weather-icons-master/css/weather-icons.css" type="text/css">
+
     <link rel="stylesheet" href="{% static 'weather-icons-master/css/weather-icons-wind.css' %}" type="text/css">   
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
  
 
@@ -749,24 +764,6 @@
             <input type="text" id=mytimestamp2 name="mytimestamp2" value="{{ Page_Refresh }}" size="1" style="background-color: darkslategray  " hidden=true>
             <input type="text" id=OpenWeather_Trigger_Counter name="OpenWeather_Trigger_Counter" value="{{ OpenWeather_Trigger_Counter }}" size="1" style="background-color: darkslategray  " hidden=true>
             <input type="text" id=monitoring_OMW_calls name="monitoring_OMW_calls" value="{{ monitoring_OMW_calls }}" size="1" style="background-color: darkslategray" hidden=true>
-
-            <br>
-            Cave 
-                {% if cellar_light_main == "off" %}
-                    <img class="light-bulb" src="../static/images/light-bulb-off.svg"></img>
-                {% else %}
-                    <img class="light-bulb" src="../static/images/light-bulb-on.svg"></img>
-                {% endif %}
-
-
-            Cave provision 
-
-
-                {% if cellar_light_provision == "off" %}
-                    <img class="light-bulb" src="../static/images/light-bulb-off.svg"></img>
-                {% else %}
-                    <img class="light-bulb" src="../static/images/light-bulb-on.svg"></img>
-                {% endif %}
 
     
         </div>
